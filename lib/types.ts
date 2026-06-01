@@ -12,14 +12,18 @@ export interface Listing {
   rentSecdNm?: string;     // 분양/임대 구분
 }
 
-// 경쟁률 및 특별공급 신청현황
+// 경쟁률 조회 - ApplyhomeInfoCmpetRtSvc
 export interface CompetitionRate {
   houseNm: string;         // 주택명
   houseManageNo: string;
-  suplyTyNm: string;       // 공급유형명
-  suplyHshldco: number;    // 공급세대수
-  rceptHshldco: number;    // 청약접수 세대수
-  compRate: string;        // 경쟁률
+  suplyTyNm?: string;      // 공급유형명
+  suplyHshldco?: number;   // 공급세대수
+  rceptHshldco?: number;   // 청약접수 세대수
+  compRate?: string;       // 경쟁률 (문자열 "X.XX" 형태)
+  CMPT_RATE?: string;      // API에 따라 필드명 다를 수 있음
+  SUPLY_HSHLDCO?: number;
+  RCEPT_HSHLDCO?: number;
+  HOUSE_NM?: string;
   rceptBgnde?: string;
   rceptEndde?: string;
 }
@@ -39,17 +43,17 @@ export interface SpecialSupply {
   rceptEndde?: string;
 }
 
-// 청약 신청·당첨자 정보
+// 청약 당첨자 통계 (지역별) - ApplyhomeStatSvc
 export interface SubscriptionWinner {
-  houseNm: string;
-  houseManageNo: string;
-  suplyTyNm: string;       // 공급유형명
-  drwtHshldco: number;     // 당첨세대수
-  mnmScre?: number;        // 최저당첨 가점
-  mxmScre?: number;        // 최고당첨 가점
-  avrgScre?: number;       // 평균당첨 가점
-  rceptBgnde?: string;
-  rceptEndde?: string;
+  rnum?: number;           // 순번
+  sido: string;            // 시도
+  sgg?: string;            // 시군구
+  lttotPblancNm?: string;  // 청약공고명
+  przwnerCo?: number;      // 당첨자수
+  rceptNmpr?: number;      // 청약접수인원
+  suplyHshldco?: number;   // 공급세대수
+  lttotPblancDe?: string;  // 청약공고일
+  przwnerPresnatnDe?: string; // 당첨자발표일
 }
 
 export interface ApiResponse<T> {

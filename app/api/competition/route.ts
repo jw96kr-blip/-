@@ -3,7 +3,7 @@ import { parseJsonResponse, parseXmlResponse } from '@/lib/parsers';
 import type { CompetitionRate } from '@/lib/types';
 
 const BASE_URL =
-  'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancMdl';
+  'https://api.odcloud.kr/api/ApplyhomeInfoCmpetRtSvc/v1/getAPTLttotPblancCmpet';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);

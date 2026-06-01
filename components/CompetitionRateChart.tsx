@@ -24,10 +24,14 @@ function getBarColor(rate: number) {
 
 export default function CompetitionRateChart({ items }: Props) {
   const data = items
-    .map((item) => ({
-      name: item.houseNm.length > 12 ? item.houseNm.slice(0, 12) + '…' : item.houseNm,
-      경쟁률: parseFloat(item.compRate) || 0,
-    }))
+    .map((item) => {
+      const name = (item.houseNm || item.HOUSE_NM || '');
+      const rate = parseFloat(item.compRate ?? item.CMPT_RATE ?? '0') || 0;
+      return {
+        name: name.length > 12 ? name.slice(0, 12) + '…' : name,
+        경쟁률: rate,
+      };
+    })
     .sort((a, b) => b.경쟁률 - a.경쟁률)
     .slice(0, 10);
 

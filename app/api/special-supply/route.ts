@@ -3,7 +3,7 @@ import { parseJsonResponse, parseXmlResponse } from '@/lib/parsers';
 import type { SpecialSupply } from '@/lib/types';
 
 const BASE_URL =
-  'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancSplySpclt';
+  'https://api.odcloud.kr/api/ApplyhomeInfoCmpetRtSvc/v1/getAPTSpsplyReqstStus';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);

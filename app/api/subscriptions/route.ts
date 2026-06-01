@@ -3,7 +3,7 @@ import { parseJsonResponse, parseXmlResponse } from '@/lib/parsers';
 import type { SubscriptionWinner } from '@/lib/types';
 
 const BASE_URL =
-  'https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDtls';
+  'https://api.odcloud.kr/api/ApplyhomeStatSvc/v1/getAPTPrzwnerAreaStat';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
