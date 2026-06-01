@@ -41,13 +41,16 @@ export default function SubscriptionsPage() {
   const matchCount = data?.matchCount ?? data?.totalCount ?? 0;
   const totalPages = Math.ceil(matchCount / perPage) || 1;
 
-  // KPI 계산 (가점제 데이터)
+  // KPI 계산 (가점제 데이터) — Math.min/max 빈 배열 Infinity 방지
   const hasScore = items.some(i => i.AVRG_SCORE != null);
-  const avgScore = hasScore
-    ? (items.reduce((s, i) => s + (i.AVRG_SCORE ?? 0), 0) / items.filter(i => i.AVRG_SCORE != null).length).toFixed(1)
+  const scoreItems  = items.filter(i => i.AVRG_SCORE != null);
+  const avgScore = scoreItems.length
+    ? (scoreItems.reduce((s, i) => s + (i.AVRG_SCORE ?? 0), 0) / scoreItems.length).toFixed(1)
     : '-';
-  const maxScore = hasScore ? Math.max(...items.map(i => i.TOP_SCORE ?? 0)) : 0;
-  const minScore = hasScore ? Math.min(...items.filter(i => i.LWET_SCROE != null).map(i => i.LWET_SCROE!)) : 0;
+  const topScores = items.map(i => i.TOP_SCORE ?? 0).filter(v => v > 0);
+  const maxScore  = topScores.length ? Math.max(...topScores) : 0;
+  const minScores = items.filter(i => i.LWET_SCROE != null && i.LWET_SCROE! > 0).map(i => i.LWET_SCROE!);
+  const minScore  = minScores.length ? Math.min(...minScores) : 0;
 
   // 지역별 가점 분포 (ScoreRangeBar용)
   const scoreRows = items
@@ -86,9 +89,9 @@ export default function SubscriptionsPage() {
           {/* KPI */}
           <div className="summary-grid" style={{ marginBottom: 24 }}>
             {[
-              { label: '평균 당첨 가점', value: avgScore,         unit: '점',  note: '조회 지역 평균', alt: false },
-              { label: '최고 당첨 가점', value: maxScore || '-',  unit: maxScore ? '점' : '', note: '최고 기록', alt: true  },
-              { label: '최저 당첨 가점', value: minScore || '-',  unit: minScore ? '점' : '', note: '최저 커트라인', alt: false },
+              { label: '평균 당첨 가점', value: avgScore,                                         unit: '점',  note: '조회 지역 평균', alt: false },
+              { label: '최고 당첨 가점', value: (maxScore > 0 && isFinite(maxScore)) ? maxScore : '-', unit: maxScore > 0 ? '점' : '', note: '최고 기록', alt: true  },
+              { label: '최저 당첨 가점', value: (minScore > 0 && isFinite(minScore)) ? minScore : '-', unit: minScore > 0 ? '점' : '', note: '최저 커트라인', alt: false },
               { label: '조회 지역·기간', value: items.length,      unit: '건',  note: '최근 6개월', alt: true  },
             ].map((c, i) => (
               <div key={i} className={`scard${c.alt ? ' alt' : ''}`}>

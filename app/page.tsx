@@ -10,9 +10,23 @@ import RegionFilterBar from '@/components/RegionFilterBar';
 import type { ApiResponse, Listing, CompetitionRate, SpecialSupply, SubscriptionWinner } from '@/lib/types';
 import { getStatusKey } from '@/components/StatusBadge';
 
-const BASE = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
+/**
+ * Vercel 서버리스에서는 localhost가 없으므로 VERCEL_URL을 자동 감지.
+ * NEXT_PUBLIC_BASE_URL이 명시적으로 설정된 경우 우선 사용.
+ */
+function getBaseUrl(): string {
+  if (process.env.NEXT_PUBLIC_BASE_URL) {
+    return process.env.NEXT_PUBLIC_BASE_URL.replace(/\/$/, '');
+  }
+  // Vercel이 배포 시 자동으로 주입하는 환경변수 (https:// 접두사 없음)
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return 'http://localhost:3000';
+}
 
 async function fetchApi<T>(path: string, params = ''): Promise<ApiResponse<T>> {
+  const BASE = getBaseUrl();
   try {
     const res = await fetch(`${BASE}/api/${path}${params ? '?' + params : ''}`, { next: { revalidate: 300 } });
     if (!res.ok) return { items: [], totalCount: 0, matchCount: 0, pageNo: 1, numOfRows: 10 };
