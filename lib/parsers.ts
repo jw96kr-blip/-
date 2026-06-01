@@ -23,10 +23,22 @@ export function parseXmlResponse<T>(xml: string): ApiResponse<T> {
 
 export function parseJsonResponse<T>(json: unknown): ApiResponse<T> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const body = (json as any)?.response?.body;
-  const items = normalizeItems<T>(body?.items?.item);
+  const raw = json as any;
+
+  // odcloud.kr 직접 포맷: { data: [], totalCount, page, perPage }
+  if (raw?.data !== undefined) {
+    return {
+      items: normalizeItems<T>(raw.data),
+      totalCount: raw.totalCount ?? 0,
+      pageNo: raw.page ?? 1,
+      numOfRows: raw.perPage ?? 10,
+    };
+  }
+
+  // 표준 data.go.kr 포맷: { response: { body: { items: { item: [] } } } }
+  const body = raw?.response?.body;
   return {
-    items,
+    items: normalizeItems<T>(body?.items?.item),
     totalCount: body?.totalCount ?? 0,
     pageNo: body?.pageNo ?? 1,
     numOfRows: body?.numOfRows ?? 10,

@@ -1,0 +1,19 @@
+
+> cheongyak-dashboard@0.1.0 dev
+> next dev
+
+⚠ Port 3000 is in use by process 25808, using available port 3001 instead.
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.0.196:3001
+- Environments: .env
+✓ Ready in 1317ms
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          25808
+- Dir:          C:\Users\jeon jae woong\OneDrive\000_AI작업용\ai심화\cheongyak-dashboard
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 25808 /F to stop it.
+[?25h

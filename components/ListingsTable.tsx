@@ -3,11 +3,6 @@
 import type { Listing } from '@/lib/types';
 import StatusBadge from './StatusBadge';
 
-function formatDate(d?: string) {
-  if (!d || d.length < 8) return d ?? '-';
-  return `${d.slice(0, 4)}.${d.slice(4, 6)}.${d.slice(6, 8)}`;
-}
-
 interface Props {
   items: Listing[];
 }
@@ -32,14 +27,14 @@ export default function ListingsTable({ items }: Props) {
         </thead>
         <tbody>
           {items.map((item, i) => (
-            <tr key={item.houseManageNo ?? i} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-              <td className="px-4 py-3 font-medium">{item.houseNm}</td>
-              <td className="px-4 py-3 text-slate-600 max-w-[200px] truncate">{item.hssplyAdres ?? '-'}</td>
-              <td className="px-4 py-3 text-center">{item.totSuplyHshldco?.toLocaleString() ?? '-'}</td>
-              <td className="px-4 py-3 text-center text-slate-500">{formatDate(item.rceptBgnde)}</td>
-              <td className="px-4 py-3 text-center text-slate-500">{formatDate(item.rceptEndde)}</td>
+            <tr key={item.HOUSE_MANAGE_NO ?? i} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+              <td className="px-4 py-3 font-medium">{item.HOUSE_NM}</td>
+              <td className="px-4 py-3 text-slate-600 max-w-[220px] truncate">{item.HSSPLY_ADRES ?? '-'}</td>
+              <td className="px-4 py-3 text-center">{item.TOT_SUPLY_HSHLDCO?.toLocaleString() ?? '-'}</td>
+              <td className="px-4 py-3 text-center text-slate-500">{item.RCEPT_BGNDE ?? '-'}</td>
+              <td className="px-4 py-3 text-center text-slate-500">{item.RCEPT_ENDDE ?? '-'}</td>
               <td className="px-4 py-3 text-center">
-                <StatusBadge startDate={item.rceptBgnde} endDate={item.rceptEndde} statusNm={item.sttusNm} />
+                <StatusBadge startDate={item.RCEPT_BGNDE} endDate={item.RCEPT_ENDDE} />
               </td>
             </tr>
           ))}

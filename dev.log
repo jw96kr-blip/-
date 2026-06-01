@@ -1,0 +1,18 @@
+
+> cheongyak-dashboard@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.196:3000
+- Environments: .env
+✓ Ready in 909ms
+
+○ Compiling / ...
+ GET /api/subscriptions?numOfRows=5 200 in 619ms (next.js: 416ms, application-code: 204ms)
+ GET /api/competition?numOfRows=5 200 in 625ms (next.js: 346ms, application-code: 279ms)
+ GET /api/listings?numOfRows=5 200 in 627ms (next.js: 290ms, application-code: 337ms)
+ GET /api/competition?numOfRows=5 200 in 628ms (next.js: 354ms, application-code: 274ms)
+ GET /api/listings?numOfRows=5 200 in 632ms (next.js: 305ms, application-code: 327ms)
+ GET /api/subscriptions?numOfRows=5 200 in 1558ms (next.js: 409ms, application-code: 1149ms)
+[?25h
