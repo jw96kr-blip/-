@@ -3,8 +3,5 @@
   "framework": "nextjs",
   "regions": ["icn1"],
   "buildCommand": "next build",
-  "installCommand": "npm install",
-  "env": {
-    "NEXT_PUBLIC_BASE_URL": "@next_public_base_url"
-  }
+  "installCommand": "npm install"
 }
