@@ -121,7 +121,8 @@ export interface SubscriptionWinner {
 
 export interface ApiResponse<T> {
   items: T[];
-  totalCount: number;
+  totalCount: number;   // cond 무관 전체 DB 크기 — KPI에 쓰지 말 것
+  matchCount: number;   // 필터 적용 후 실제 결과 수 — KPI/페이지네이션에 사용
   pageNo: number;
   numOfRows: number;
 }
